@@ -5,7 +5,9 @@
 U-Net: Convolutional Networks for Biomedical Image Segmentation
 (https://arxiv.org/abs/1505.04597)
 
-Borrowed code and ideas from zhixuhao's unet: https://github.com/zhixuhao/unet and then modified
+Borrowed code and ideas from zhixuhao's unet: https://github.com/zhixuhao/unet and 
+bnsreenu's unet: https://github.com/bnsreenu/python_for_microscopists/blob/master/074-Defining%20U-net%20in%20Python%20using%20Keras.py, 
+then modified
 """
 
 # load modules 
