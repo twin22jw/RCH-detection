@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[3]:
-
-
 """
 U-Net: Convolutional Networks for Biomedical Image Segmentation
 (https://arxiv.org/abs/1505.04597)
@@ -11,16 +8,12 @@ U-Net: Convolutional Networks for Biomedical Image Segmentation
 Borrowed code and ideas from zhixuhao's unet: https://github.com/zhixuhao/unet and then modified
 """
 
-# load modules (tensorflow 2.x)
+# load modules 
 import tensorflow as tf
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Layer
 from tensorflow.keras.layers import Input
 from tensorflow.keras import backend as K
-
-
-# In[4]:
-
 
 Img_Width    = 256
 Img_Height   = 256
@@ -31,7 +24,7 @@ inputs  = Input((Img_Height, Img_Width, Img_Channels))
 
 c1 = tf.keras.layers.Conv2D(32, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same' )(inputs)
 c1 = tf.keras.layers.BatchNormalization(axis=-1)(c1)
-c1 = tf.keras.layers.Dropout(0.1)(c1)
+c1 = tf.keras.layers.Dropout(0.1)(c1) # optional
 c1 = tf.keras.layers.Conv2D(32, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(c1)
 c1 = tf.keras.layers.BatchNormalization(axis=-1)(c1)
 p1 = tf.keras.layers.MaxPooling2D((2, 2))(c1)
@@ -39,7 +32,7 @@ p1 = tf.keras.layers.MaxPooling2D((2, 2))(c1)
 
 c2 = tf.keras.layers.Conv2D(64, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(p1)
 c2 = tf.keras.layers.BatchNormalization(axis=-1)(c2)
-c2 = tf.keras.layers.Dropout(0.1)(c2)
+c2 = tf.keras.layers.Dropout(0.1)(c2) # optional
 c2 = tf.keras.layers.Conv2D(64, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(c2)
 c2 = tf.keras.layers.BatchNormalization(axis=-1)(c2)
 p2 = tf.keras.layers.MaxPooling2D((2, 2))(c2)
@@ -47,7 +40,7 @@ p2 = tf.keras.layers.MaxPooling2D((2, 2))(c2)
 
 c3 = tf.keras.layers.Conv2D(128, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(p2)
 c3 = tf.keras.layers.BatchNormalization(axis=-1)(c3)
-c3 = tf.keras.layers.Dropout(0.2)(c3)
+c3 = tf.keras.layers.Dropout(0.2)(c3) # optional
 c3 = tf.keras.layers.Conv2D(128, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(c3)
 c3 = tf.keras.layers.BatchNormalization(axis=-1)(c3)
 p3 = tf.keras.layers.MaxPooling2D((2, 2))(c3)
@@ -55,7 +48,7 @@ p3 = tf.keras.layers.MaxPooling2D((2, 2))(c3)
 
 c4 = tf.keras.layers.Conv2D(256, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(p3)
 c4 = tf.keras.layers.BatchNormalization(axis=-1)(c4)
-c4 = tf.keras.layers.Dropout(0.2)(c4)
+c4 = tf.keras.layers.Dropout(0.2)(c4) # optional
 c4 = tf.keras.layers.Conv2D(256, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(c4)
 c4 = tf.keras.layers.BatchNormalization(axis=-1)(c4)
 p4 = tf.keras.layers.MaxPooling2D(pool_size = (2, 2))(c4)
@@ -63,7 +56,7 @@ p4 = tf.keras.layers.MaxPooling2D(pool_size = (2, 2))(c4)
 
 c5 = tf.keras.layers.Conv2D(512, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(p4)
 c5 = tf.keras.layers.BatchNormalization(axis=-1)(c5)
-c5 = tf.keras.layers.Dropout(0.3)(c5)
+c5 = tf.keras.layers.Dropout(0.3)(c5) # optional
 c5 = tf.keras.layers.BatchNormalization(axis=-1)(c5)
 c5 = tf.keras.layers.Conv2D(512, (3, 3), activation = 'relu', kernel_initializer = 'he_normal', padding = 'same')(c5)
 
@@ -108,10 +101,3 @@ def dice_coef(y_true, y_pred):
 
 model   = Model(inputs = [inputs], outputs = [outputs])
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = [dice_coef])
-
-
-# In[ ]:
-
-
-
-
